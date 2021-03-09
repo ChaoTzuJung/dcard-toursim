@@ -11,27 +11,26 @@ const StyledGlobal = createGlobalStyle`
     html {
         --red: #ff0000;
         --white: #FFFFFF;
-        --black: #393939;
-        --grey: #3A3A3A;
-        --gray: var(--grey);
-        --lightGrey: #e1e1e1;
-        --lightGray: var(--lightGrey);
-        --offWhite: #ededed;
-        --maxWidth: 1120px;
+        --darkWhite: #F2F2F2;
+        --black: #000000;
+        --darkGrey: #9B9B9B;
+        --grey: #D7D7D7;
+        --lightGrey: #EBEBEB;
+        --purple: #7828B4;
+        --lightPurple: #9013FE;
         --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
+        --maxWidth: 1206px;
         box-sizing: border-box;
-        font-size: 62.5%;
     }
     *, *:before, *:after {
         box-sizing: inherit;
-        border: .5px solid red;
     }
     body {
         font-family: 'Optima-ExtraBlack', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
         padding: 0;
         margin: 0;
         font-size: 1.5rem;
-        line-height:2;
+        line-height: 2;
         background-color: #F2F2F2;
     }
     a {
@@ -42,7 +41,7 @@ const StyledGlobal = createGlobalStyle`
     }
     button {
         font-family: 'Optima-ExtraBlack', --apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    }
+    },
 `;
 
 export default StyledGlobal;

@@ -1,11 +1,20 @@
-import styled from 'styled-components';
+import { S } from './styled';
+import Filter from '../../components/Filter';
+import Result from '../../components/Result';
+import Card from '../../components/Card';
 
-const StyledInner = styled.div`
-    max-width: var(--maxWidth);
-    margin: 0 auto;
-    padding: 0 40px 24px 40px;
-`;
+const locations = ['All', 'Entertainment', 'Food', 'Learning', 'Outdoors'];
 
-const Home: React.FC = ({ children }) => <StyledInner>{children}</StyledInner>;
+const Home: React.FC = () => (
+    <S.Wapper>
+        <div className="sidebar">
+            <Filter />
+        </div>
+        <div className="list-container">
+            <Result tags={locations} />
+            <Card />
+        </div>
+    </S.Wapper>
+);
 
 export default Home;
