@@ -1,18 +1,22 @@
-import { HashRouter, Route, Switch } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch
+} from 'react-router-dom';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import Header from './components/Header'; 
 import StyledGlobal from './components/Common/style/GlobalStyles';
 
 const App = () => (
-    <HashRouter>
+    <Router>
         <StyledGlobal />
         <Header />
         <Switch>
-            <Route path="/" component={Home}></Route>
-            <Route path="*" component={NotFound}></Route>
+            <Route path="/" component={Home} />
+            <Route path="*" component={NotFound} />
         </Switch>
-    </HashRouter>
+    </Router>
 )
 
 export default App;
