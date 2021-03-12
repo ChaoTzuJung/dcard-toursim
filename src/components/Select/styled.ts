@@ -5,7 +5,7 @@ type TriangleType = {
 };
 
 export const S = {
-    Wapper: styled.div`
+    Wrapper: styled.div`
         position: relative;
         width: 220px;
         border-radius: 2px;

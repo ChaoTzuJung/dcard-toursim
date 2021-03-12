@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 export const S = {
-    Wapper: styled.div`
+    Wrapper: styled.div`
         margin-right: 8px;
     `,
     TagContainer: styled.div`

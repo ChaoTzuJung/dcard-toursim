@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const S = {
-    Wapper: styled.div`
+    Wrapper: styled.div`
         & .row {
             display: flex;
             justify-content: space-between;

@@ -19,7 +19,7 @@ const Checkbox: React.FC = () => {
     }
 
     return (
-        <S.Wapper>
+        <S.Wrapper>
             <S.Item>
                 <S.CheckboxButton
                     type="checkbox"
@@ -75,7 +75,7 @@ const Checkbox: React.FC = () => {
                 <S.CheckboxButtonLabel className="checkbox" />
                 <label>Outdoors</label>
             </S.Item>
-        </S.Wapper>
+        </S.Wrapper>
     )
 }
 

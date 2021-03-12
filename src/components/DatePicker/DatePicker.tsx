@@ -55,7 +55,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ label, className }) => {
     };
 
     return (
-        <S.Wapper className={className} ref={ref}>
+        <S.Wrapper className={className} ref={ref}>
             <div className="row">
                 <div className="label">{label}</div>
                 <S.Input
@@ -73,7 +73,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ label, className }) => {
                     />
                 )}
             </div>
-        </S.Wapper>
+        </S.Wrapper>
     )
 }
 

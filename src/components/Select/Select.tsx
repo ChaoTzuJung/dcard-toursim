@@ -26,7 +26,7 @@ const Select: React.FC<SelectProps> = ({ options, onChange }) => {
     
 
     return (
-        <S.Wapper ref={ref}>
+        <S.Wrapper ref={ref}>
             <S.Select onClick={handleClick}>
                 {selectedOption || 'Taiwan'}
                 <div>
@@ -48,7 +48,7 @@ const Select: React.FC<SelectProps> = ({ options, onChange }) => {
                     </S.SelectList>
                 </S.SelectContainer>
             )}
-        </S.Wapper>
+        </S.Wrapper>
     )
 }
 

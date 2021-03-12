@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const S = {
-    Wapper: styled.div`
+    Wrapper: styled.div`
         display: flex;
         flex-direction: column;
         justify-content: start;
