@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const S = {
-    Wapper: styled.div`
+    Wrapper: styled.div`
         max-width: var(--maxWidth);
         margin: 0 auto;
         display: flex;

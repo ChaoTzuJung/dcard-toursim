@@ -6,7 +6,7 @@ interface ResultProps {
 }
 
 const Result: React.FC<ResultProps>= ({ tags }) => (
-    <S.Wapper>
+    <S.Wrapper>
         <div className="description">
             Showing <span>{tags.length}</span> results by...
         </div>
@@ -15,7 +15,7 @@ const Result: React.FC<ResultProps>= ({ tags }) => (
                 <Tag text={tag} key={tag} />
             ))}
         </S.TagsWrapper>
-    </S.Wapper>
+    </S.Wrapper>
 );
 
 export default Result;

@@ -5,12 +5,12 @@ interface TagProps {
 }
 
 const Tag: React.FC<TagProps> = ({ text }) => (
-    <S.Wapper>
+    <S.Wrapper>
         <S.TagContainer>
             {text}
             <S.Close />
         </S.TagContainer>
-    </S.Wapper>
+    </S.Wrapper>
 );
 
 export default Tag;
