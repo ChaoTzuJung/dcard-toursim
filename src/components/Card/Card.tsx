@@ -1,25 +1,72 @@
 import React from 'react';
-import { S } from './styled';
-
+import dayjs from 'dayjs';
 import LocationOnOutlinedIcon from '@material-ui/icons/LocationOnOutlined';
 import DateRangeIcon from '@material-ui/icons/DateRange';
+import Skeleton from "@material-ui/lab/Skeleton";
 
-const Card: React.FC = () => {
+import { S } from './styled';
+
+interface CardProps {
+    name: string,
+    description?: string,
+    address?: string,
+    updateTime?: string,
+    category?: string,
+    ticketInfo?: string,
+    picture?: string,
+    loading?: boolean,
+}
+
+const Card: React.FC<CardProps> = ({
+    name,
+    description,
+    address,
+    updateTime,
+    category,
+    ticketInfo,
+    picture,
+    loading = false,
+}) => {
+    const cityName = address?.slice(0, 3);
+    const fee = ticketInfo?.includes('免費') ? '免費' : '收費';
+
+    if(loading)
+        return (
+            <S.Card>
+                <Skeleton animation="wave" variant="rect" width={220} height={220} />
+                <S.CardInfo>
+                    <Skeleton animation="wave" height={24} width="30%" />
+                    <Skeleton animation="wave" height={24} width={520} />
+                    <Skeleton animation="wave" height={24} width={520} />
+                    <Skeleton animation="wave" height={24} width={520} />
+                    <div className="row">
+                        <Skeleton animation="wave" height={24} width="16%" />
+                    </div>
+                    <div className="row">
+                        <LocationOnOutlinedIcon className="icon" style={{ fontSize: 16 }} />
+                        <Skeleton animation="wave" height={24} width="10%" />
+                        <DateRangeIcon className="icon" style={{ fontSize: 16, marginLeft: 20 }} />
+                        <Skeleton animation="wave" height={24} width="24%" />
+                    </div>
+                </S.CardInfo>
+            </S.Card>
+        )
+
     return (
         <S.Card>
-            <img src="https://images.unsplash.com/photo-1569078201377-7a28757ecb13?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" />
+            <img src={picture} />
             <S.CardInfo>
-                <S.CardTitle>Kogi Cosby sweater</S.CardTitle>
-                <S.CardDescription>Donec euismod scelerisque ligula. Maecenas eu varius risus, eu aliquet arcu. Curabitur fermentum suscipit est, tincidunt mattis lorem luctus id.</S.CardDescription>
+                <S.CardTitle>{name}</S.CardTitle>
+                <S.CardDescription>{description}</S.CardDescription>
                 <div className="row">
-                    <S.TicketInfo>than Foster</S.TicketInfo>
-                    <S.Class>Entertainment</S.Class>
+                    <S.TicketInfo>{fee}</S.TicketInfo>
+                    {category && <S.Level>{category}</S.Level>}
                 </div>
                 <div className="row">
                     <LocationOnOutlinedIcon className="icon" style={{ fontSize: 16 }} />
-                    <S.Address>Kaohsiung City</S.Address>
+                    <S.Address>{cityName}</S.Address>
                     <DateRangeIcon className="icon" style={{ fontSize: 16 }} />
-                    <S.TimeInterval>2018/5/24 - 2018/5/31</S.TimeInterval>
+                    <S.TimeInterval>{dayjs(updateTime).format('YYYY/MM/DD')}</S.TimeInterval>
                 </div>
             </S.CardInfo>
         </S.Card>
