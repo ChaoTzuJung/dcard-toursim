@@ -1,16 +1,13 @@
+import { ISvgMap } from '../../types';
 import { ReactComponent as ArrowLeftIcon } from '../../images/icons/arrow-left-dark.svg';
 import { ReactComponent as ArrowRightIcon } from '../../images/icons/arrow-right-dark.svg';
 import { S } from './styled';
 
-interface IconProps {
-	name: string,
-	theme?: string,
-	rotate?: number,
-	onClick?: () => void,
-}
-
-interface SvgMap {
-    [name: string]: JSX.Element
+type IconProps = {
+	name: string;
+	theme?: string;
+	rotate?: number;
+	onClick?: () => void;
 }
 
 const Icon: React.FC<IconProps> = ({ name, onClick, theme, rotate }) => {
@@ -19,7 +16,7 @@ const Icon: React.FC<IconProps> = ({ name, onClick, theme, rotate }) => {
 		onClick && onClick()
 	}
 
-	const svgComponents: SvgMap = {
+	const svgComponents: ISvgMap = {
 		arrow_left: <ArrowLeftIcon />,
 		arrow_right: <ArrowRightIcon />,
 	};

@@ -1,19 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
+
+import { IDate } from '../../types';
+import { useOnClickOutside } from '../../utils/hook';
 import Calendar from '../Calendar';
 import { S } from './styled';
-import { useOnClickOutside } from '../../utils/hook';
 
-interface Date {
-	year: number,	// 年
-	month: number,	// 月
-	date: number,	// 日
-	day: number,	// 星期
-}
-
-interface DatePickerProps {
-    label: string,
-    className?: string,
+type DatePickerProps = {
+    label: string;
+    className?: string;
 }
 
 const DatePicker: React.FC<DatePickerProps> = ({ label, className }) => {
@@ -34,7 +29,7 @@ const DatePicker: React.FC<DatePickerProps> = ({ label, className }) => {
 	const openCalendar = () => setCalendarOpen(true);
 	const closeClendar = () => setCalendarOpen(false);
 
-	const handleCalendarChange = (day: Date) => {
+	const handleCalendarChange = (day: IDate) => {
 		let newMonth;
 		let newDate;
 

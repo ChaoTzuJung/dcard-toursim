@@ -1,14 +1,15 @@
 import { S } from './styled';
 
-interface TagProps {
+type TagProps = {
     text: string;
-}
+    onClick: (text: string) => void;
+};
 
-const Tag: React.FC<TagProps> = ({ text }) => (
+const Tag: React.FC<TagProps> = ({ text, onClick }) => (
     <S.Wrapper>
         <S.TagContainer>
             {text}
-            <S.Close />
+            <S.Close onClick={() => onClick(text)} />
         </S.TagContainer>
     </S.Wrapper>
 );

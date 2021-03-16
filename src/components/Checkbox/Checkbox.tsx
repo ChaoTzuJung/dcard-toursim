@@ -1,80 +1,32 @@
-import { useState } from 'react';
+import { ICheckbox } from '../../types';
 import { S } from './styled';
 
-interface ICheckbox {
-    [name: string]: boolean
-}
+type CheckboxProps = {
+    checkbox: ICheckbox;
+    onCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+};
 
-const Checkbox: React.FC = () => {
-    const [checkbox, setCheckbox] = useState<ICheckbox>({
-        All: false,
-        Entertainment: false,
-        Food: false,
-        Learning: false,
-        Outdoors: false,
-    });
+const Checkbox: React.FC<CheckboxProps> = ({ checkbox, onCheckboxChange }) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckbox({ ...checkbox, [event.target.name]: event.target.checked });
+        onCheckboxChange && onCheckboxChange(event)
     }
 
     return (
         <S.Wrapper>
-            <S.Item>
-                <S.CheckboxButton
-                    type="checkbox"
-                    name="All"
-                    value="All"
-                    checked={checkbox.All}
-                    onChange={handleChange}
-                />
-                <S.CheckboxButtonLabel className="checkbox" />
-                <label>All</label>
-            </S.Item>
-            <S.Item>
-                <S.CheckboxButton
-                    type="checkbox"
-                    name="Entertainment"
-                    value="Entertainment"
-                    checked={checkbox.Entertainment}
-                    onChange={handleChange}
-                />
-                <S.CheckboxButtonLabel className="checkbox" />
-                <label>Entertainment</label>
-            </S.Item>
-            <S.Item>
-                <S.CheckboxButton
-                    type="checkbox"
-                    name="Food"
-                    value="Food"
-                    checked={checkbox.Food}
-                    onChange={handleChange}
-                />
-                <S.CheckboxButtonLabel className="checkbox" />
-                <label>Food</label>
-            </S.Item>
-            <S.Item>
-                <S.CheckboxButton
-                    type="checkbox"
-                    name="Learning"
-                    value="Learning"
-                    checked={checkbox.Learning}
-                    onChange={handleChange}
-                />
-                <S.CheckboxButtonLabel className="checkbox" />
-                <label>Learning</label>
-            </S.Item>
-            <S.Item>
-                <S.CheckboxButton
-                    type="checkbox"
-                    name="Outdoors"
-                    value="Outdoors"
-                    checked={checkbox.Outdoors}
-                    onChange={handleChange}
-                />
-                <S.CheckboxButtonLabel className="checkbox" />
-                <label>Outdoors</label>
-            </S.Item>
+            {Object.keys(checkbox).map(item => (
+                <S.Item key={item}>
+                    <S.CheckboxButton
+                        type="checkbox"
+                        name={item}
+                        value={item}
+                        checked={checkbox[item]}
+                        onChange={handleChange}
+                    />
+                    <S.CheckboxButtonLabel className="checkbox" />
+                    <label>{item}</label>
+                </S.Item>
+            ))}
         </S.Wrapper>
     )
 }

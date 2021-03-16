@@ -4,7 +4,7 @@ export const S = {
     Header: styled.header`
         width: 100%;
         height: 92px;
-        background: #7828B4;
+        background: var(--purple);
         padding: 24px 40px;
     `,
     Navigation: styled.nav`

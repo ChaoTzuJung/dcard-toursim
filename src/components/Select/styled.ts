@@ -30,6 +30,8 @@ export const S = {
         margin: 0 auto;
         border-radius: 2px;
         z-index: 2;
+        max-height: 200px;
+        overflow: scroll;
     `,
     SelectList: styled.ul`
         width: 100%;

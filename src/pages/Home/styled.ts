@@ -11,7 +11,9 @@ export const S = {
         }
 
         & .list-container {
-
+            width: 780px;
+            min-height: calc(100vh - 92px);
+            height: 100%;
         }
     `,
 
