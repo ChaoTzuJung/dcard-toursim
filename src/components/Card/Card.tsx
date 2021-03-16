@@ -6,15 +6,15 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 import { S } from './styled';
 
-interface CardProps {
-    name: string,
-    description?: string,
-    address?: string,
-    updateTime?: string,
-    category?: string,
-    ticketInfo?: string,
-    picture?: string,
-    loading?: boolean,
+type CardProps = {
+    name: string;
+    description?: string;
+    address?: string;
+    updateTime?: string;
+    category?: string;
+    ticketInfo?: string;
+    picture?: string;
+    loading?: boolean;
 }
 
 const Card: React.FC<CardProps> = ({

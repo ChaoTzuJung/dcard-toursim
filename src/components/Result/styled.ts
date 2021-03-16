@@ -5,7 +5,7 @@ export const S = {
         display: flex;
         flex-direction: column;
         justify-content: start;
-        margin: 24px 0;
+        padding: 24px 0;
 
         & .description {
             font-family: 'Roboto-Regular';
@@ -22,5 +22,6 @@ export const S = {
     TagsWrapper: styled.div`
         display: flex;
         align-items: center;
+        flex-wrap: wrap;
     `
 }

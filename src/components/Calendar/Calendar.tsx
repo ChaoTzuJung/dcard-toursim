@@ -1,31 +1,16 @@
 import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import toObject from 'dayjs/plugin/toObject';
+
+import { IDate, IDayjsObject } from '../../types';
 import Icon from '../Icon';
 import { S } from './styled';
 
-interface CalendarProps {
-	className?: string
-    value: string,
-	calendarPastDays?: number,
-	onChange: (day: Date) => void,
-}
-
-interface Date {
-	year: number,	// 年
-	month: number,	// 月
-	date: number,	// 日
-	day: number,	// 星期
-}
-
-interface DayjsObject {
-	years: number,
-	months: number,
-	date: number,
-	hours: number,
-	minutes: number,
-	seconds: number,
-	milliseconds: number,
+type CalendarProps = {
+	className?: string;
+    value: string;
+	calendarPastDays?: number;
+	onChange: (day: IDate) => void;
 }
 
 const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays, onChange }) => {
@@ -39,21 +24,21 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 	const pastDays = calendarPastDays || 0;
 	
 	// 可以知道每個月左上角第一格的年/月/日/星期
-	const [firstDay, setFirstDay] = useState<Date>({ year: 0, month: 0, date: 0, day: 0 });
+	const [firstDay, setFirstDay] = useState<IDate>({ year: 0, month: 0, date: 0, day: 0 });
 	// 可以填入日期限制哪個日期以前的天數不能被選
-	const [limitDay, setLimitDay] = useState<Date>({ year: 0, month: 0, date: 0, day: 0 });
+	const [limitDay, setLimitDay] = useState<IDate>({ year: 0, month: 0, date: 0, day: 0 });
 	// 負責產生每格日期的資料
-	const [days, setDays] = useState<Date[]>([]);
+	const [days, setDays] = useState<IDate[]>([]);
 	// 紀錄被點擊的日期
-	const [isSelectedDate, setIsSelectedDate] = useState<Date>(today);
+	const [isSelectedDate, setIsSelectedDate] = useState<IDate>(today);
 	// 紀錄切換月份時的月
-	const [calendar, setCalendar] = useState<Date>(isSelectedDate);
+	const [calendar, setCalendar] = useState<IDate>(isSelectedDate);
 
 	// 每次開關calendar時會mount一次，直接檢查是否有值在input並帶入calendar，若 input 上有值則帶入
 	useEffect(() => {
 		if (value) {
 			dayjs.extend(toObject);
-			const myDate: DayjsObject = dayjs(value).toObject();
+			const myDate: IDayjsObject = dayjs(value).toObject();
 
 			setCalendar(prevState => ({
 				...prevState,
@@ -72,7 +57,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 	}, []);
 
 	// 控制之前或是未來的日期的顏色與可否點選
-	const isOutOfLimit = (day: Date) => {
+	const isOutOfLimit = (day: IDate) => {
 		// 今天的日期
 		const daytoday = new Date(today.year, today.month, today.date);
 		// dateline的日期
@@ -82,7 +67,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		return dayCal > daytoday || dayCal < samllestDay;
 	};
 
-	const pickDate = (day: Date) => {
+	const pickDate = (day: IDate) => {
 		if (isOutOfLimit(day)) {
 			return false;
 		}
@@ -91,7 +76,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		return isSelectedDate;
 	};
 
-	const isSelect = (day: Date) => {
+	const isSelect = (day: IDate) => {
 		if (isSelectedDate.date !== now.getDate()) {
 			return (
 				day.year === isSelectedDate.year &&
@@ -135,7 +120,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 
 	// 照順序產生日期與資料
 	const generateCalendarGrid = () => {
-		const data: Date[] = [];
+		const data: IDate[] = [];
 		let day;
 		for (let i = 0; i < 42; i += 1) {
 			// JS Date 處理時間時，date 加 i 到超過 31時，會自動變成下個月
@@ -200,7 +185,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 	};
 
 	// 把數字 format 成英文日期
-	const transferDate = (date: Date) => {
+	const transferDate = (date: IDate) => {
 		const { year, month } = date;
 		// JS 在 date月份是 0 ~ 11
 		const monthPlus = month + 1;
@@ -224,7 +209,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 					<div>Fri</div>
 					<div>Sat</div>
 				</S.weekDay>
-				{days.map((day: Date) => (
+				{days.map((day: IDate) => (
 					<S.Day
 						key={`${day.year}-${day.month}-${day.date}`}
 						data-today={isSelectedDate.date}

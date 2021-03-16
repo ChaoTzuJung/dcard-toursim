@@ -1,19 +1,24 @@
-import { S } from './styled';
 import Tag from '../Tag';
+import { ICheckbox, IToursim } from '../../types';
+import { S } from './styled';
 
-interface ResultProps {
-    tags: string[]
+type ResultProps = {
+    data: IToursim[];
+    tags: ICheckbox;
+    onClick: (text: string) => void;
 }
 
-const Result: React.FC<ResultProps>= ({ tags }) => (
+const Result: React.FC<ResultProps>= ({ data, tags, onClick }) => (
     <S.Wrapper>
         <div className="description">
-            Showing <span>{tags.length}</span> results by...
+            Showing <span>{data.length}</span> results by...
         </div>
         <S.TagsWrapper>
-            {tags.map(tag => (
-                <Tag text={tag} key={tag} />
-            ))}
+            {Object
+                .keys(tags)
+                .filter(key => tags[key])
+                .map(name => <Tag key={name} text={name} onClick={onClick} />)
+            }
         </S.TagsWrapper>
     </S.Wrapper>
 );
