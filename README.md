@@ -29,6 +29,10 @@ Use `IntersectionObserver` API to achieve infinite scroll and only load more dat
 In addition to lazy-loading data, dcard-tourism also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
 
 ## File Structure
+- Creating path aliases in create-react-app with `tsconfig.json` setting.
+- Organize types definitions in `types` folder.
+- Smarter way to organize **import** statements using `index.ts` files
+- Export **S** object from `styled.ts` to resolve naming convention issue with React component and styled component.
 ```
 src
 ├── api
@@ -60,6 +64,8 @@ src
 ## Todo Roadmap
   - [ ] Content Page
   - [ ] Pagination
+  - [ ] Search Bar
+  - [ ] Calendar & Checkbox Filter
   - [ ] Error Handling
   - [ ] Storybook
   - [ ] Unit Test
