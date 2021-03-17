@@ -69,7 +69,7 @@ src
   - [ ] Error Handling
   - [ ] Storybook
   - [ ] Unit Test
-  - [ ] CI/CD Pipeline
   - [ ] Server Side Rendering
+  - [ ] .env setting with Netlify
 
 Netlify URL: [https://dcard-tourism.netlify.app](hhttps://dcard-tourism.netlify.app)
