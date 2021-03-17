@@ -2,12 +2,6 @@
 import { createGlobalStyle } from 'styled-components';
 
 const StyledGlobal = createGlobalStyle`
-    @font-face {
-        font-family: 'Optima-ExtraBlack';
-        src: url('/static/Optima-ExtraBlack.ttf') format('truetype');
-        font-weight: normal;
-        font-style: normal;
-    }
     html {
         --red: #ff0000;
         --purple: #7828B4;

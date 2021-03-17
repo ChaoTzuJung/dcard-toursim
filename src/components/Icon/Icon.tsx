@@ -1,3 +1,4 @@
+import React from 'react';
 import { ReactComponent as ArrowLeftIcon } from 'images/icons/arrow-left-dark.svg';
 import { ReactComponent as ArrowRightIcon } from 'images/icons/arrow-right-dark.svg';
 import { ISvgMap } from 'types';
@@ -34,4 +35,4 @@ const Icon: React.FC<IconProps> = ({ name, theme, rotate, onClick }) => {
 		</S.Icon>
 	);
 };
-export default Icon;
+export default React.memo(Icon);

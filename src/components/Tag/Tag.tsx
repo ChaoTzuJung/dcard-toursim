@@ -1,3 +1,4 @@
+import React from 'react';
 import { S } from './styled';
 
 type TagProps = {
@@ -14,4 +15,4 @@ const Tag: React.FC<TagProps> = ({ text, onClick }) => (
     </S.Wrapper>
 );
 
-export default Tag;
+export default React.memo(Tag);

@@ -20,13 +20,13 @@ $ npm install && npm start (or using yarn instead)
   - [X] Performance
 
 ### Virtualized List
-Use `react-window` to achieve virtualized list which is a react components for efficiently rendering large lists and tabular data.As the Chrome Performance Monitor, It took less than **4.2MB JS heap size, 350 DOM** nodes on initial renderer, and of course, it's responsive. 
+Use `react-window` to achieve virtualized list which is a react components for efficiently rendering large lists and tabular data.
 
-### Infinite Scroll && Lazy Load
+### Infinite Scroll && Lazy Loading
 Use `IntersectionObserver` API to achieve infinite scroll and only load more data while scrolling to current bottom boundary.
 
 ### Performance
-In addition to lazy-loading data, dcard-reader also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
+In addition to lazy-loading data, dcard-tourism also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
 
 ## File Structure
 ```
@@ -60,9 +60,10 @@ src
 ## Todo Roadmap
   - [ ] Content Page
   - [ ] Pagination
+  - [ ] Error Handling
   - [ ] Storybook
   - [ ] Unit Test
-    - [ ] CI/CD Pipeline
+  - [ ] CI/CD Pipeline
   - [ ] Server Side Rendering
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader?ref=badge_large)
