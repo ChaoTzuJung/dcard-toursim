@@ -15,14 +15,14 @@ export const S = {
         border-radius: 4px;
         background-color: var(--white);
     `,
-    calendarHeader: styled.div`
+    CalendarHeader: styled.div`
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
     `,
-    calendarBody: styled.div`
+    CalendarBody: styled.div`
     `,
-    weekDay: styled.div`
+    WeekDay: styled.div`
         display: flex;
 
         & div {

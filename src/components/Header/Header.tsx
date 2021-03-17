@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import { Link } from 'react-router-dom';
 import useMedia from 'use-media';
 import SearchIcon from '@material-ui/icons/Search';
@@ -9,14 +9,13 @@ import { S } from './styled';
 
 const Header: React.FC = () => {
     const isMobile = useMedia({ maxWidth: screen.mobile })
-    const isTablet = useMedia({ maxWidth: screen.tablet })
     const IconStyle = useMemo(() => {
         if (isMobile) {
             return { fontSize: 27, color: '#000000' };
         } else {
             return { fontSize: 27, color: '#FFFFFF' };
         }
-    }, [isMobile, isTablet]);
+    }, [isMobile]);
     return (
         <S.Header>
             <S.Navigation>
@@ -40,4 +39,4 @@ const Header: React.FC = () => {
 }
 
 
-export default Header;
+export default React.memo(Header);

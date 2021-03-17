@@ -54,7 +54,7 @@ const Card: React.FC<CardProps> = ({
 
     return (
         <S.Card>
-            <img src={picture} />
+            <img src={picture} alt="image_url_empty"/>
             <S.CardInfo>
                 <S.CardTitle>{name}</S.CardTitle>
                 <S.CardDescription>{description}</S.CardDescription>

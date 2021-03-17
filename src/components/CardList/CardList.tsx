@@ -33,8 +33,9 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
     useEffect(() => {
         setLastId(null);
         listRef?.scrollToItem(0);
-    }, [location.pathname])
+    }, [location.pathname, setLastId, listRef])
     
+	/* eslint-disable react-hooks/exhaustive-deps */
     const lastItemRef = useCallback(node => {
         if(loading) {
             return;
@@ -95,7 +96,7 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
         <AutoSizer>
             {({ height, width }) => (
                 <List
-                    height={isMobile ? height : height - 92}
+                    height={isMobile ? height : height - 94}
                     width={width}
                     itemCount={data.length}
                     itemSize={listWidth}

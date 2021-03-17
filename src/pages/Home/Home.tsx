@@ -6,7 +6,6 @@ import { IFetchPostHook, ICheckbox } from 'types';
 import { screen } from 'utils/media';
 import useFetchPost from 'hook/useFetchPost';
 import CardList from 'components/CardList';
-import ErrorMessage from 'components/ErrorMessage';
 import Filter from 'components/Filter';
 import Result from 'components/Result';
 import { S } from './styled';
@@ -42,9 +41,8 @@ const Home: React.FC = () => {
         if(!city) {
             history.push("/scenicSpot");
         }
-    }, [location.pathname])
+    }, [location.pathname, city, history])
 
-    // if(error) return <ErrorMessage error={error} />
     if(error) return <p>Something goes wrong......</p>
 
     return (

@@ -153,29 +153,32 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 				date: myDate.date,
 			}));
 		}
-	}, []);
+	}, [value]);
 
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
 		getFirstDayOfMonth();
 	}, [calendar]);
 
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
 		getLimitDay();
 	}, []);
 
+	/* eslint-disable react-hooks/exhaustive-deps */
 	useEffect(() => {
 		generateCalendarGrid();
 	}, [firstDay]);
 
 	return (
 		<S.Calendar className={className}>
-			<S.calendarHeader>
+			<S.CalendarHeader>
 				<Icon name="arrow_left" onClick={() => adjustMonth(-1)} />
 				<div>{transferDate(calendar)}</div>
 				<Icon name="arrow_right" onClick={() => adjustMonth(1)} rotate={180}/>
-			</S.calendarHeader>
-			<S.calendarBody>
-				<S.weekDay>
+			</S.CalendarHeader>
+			<S.CalendarBody>
+				<S.WeekDay>
 					<div>Sun</div>
 					<div>Mon</div>
 					<div>Tue</div>
@@ -183,7 +186,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 					<div>Thr</div>
 					<div>Fri</div>
 					<div>Sat</div>
-				</S.weekDay>
+				</S.WeekDay>
 				{days.map((day: IDate) => (
 					<S.Day
 						key={`${day.year}-${day.month}-${day.date}`}
@@ -198,7 +201,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 						{day.date}
 					</S.Day>
 				))}
-			</S.calendarBody>
+			</S.CalendarBody>
 		</S.Calendar>
 	);
 };
