@@ -33,9 +33,10 @@ export interface IToursim {
     Remarks?: string,
     SrcUpdateTime: string,
     UpdateTime: string,
+    message?: {},
 }
 
-export interface IfetchPostHook {
+export interface IFetchPostHook {
     loading: boolean;
     error: boolean;
     posts: any[];

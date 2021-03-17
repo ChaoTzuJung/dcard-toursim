@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import toObject from 'dayjs/plugin/toObject';
 
-import { IDate, IDayjsObject } from '../../types';
-import Icon from '../Icon';
+import { IDate, IDayjsObject } from 'types';
+import Icon from 'components/Icon';
 import { S } from './styled';
 
 type CalendarProps = {
@@ -22,47 +22,15 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		day: now.getDay(),
 	};
 	const pastDays = calendarPastDays || 0;
-	
-	// 可以知道每個月左上角第一格的年/月/日/星期
 	const [firstDay, setFirstDay] = useState<IDate>({ year: 0, month: 0, date: 0, day: 0 });
-	// 可以填入日期限制哪個日期以前的天數不能被選
 	const [limitDay, setLimitDay] = useState<IDate>({ year: 0, month: 0, date: 0, day: 0 });
-	// 負責產生每格日期的資料
 	const [days, setDays] = useState<IDate[]>([]);
-	// 紀錄被點擊的日期
 	const [isSelectedDate, setIsSelectedDate] = useState<IDate>(today);
-	// 紀錄切換月份時的月
 	const [calendar, setCalendar] = useState<IDate>(isSelectedDate);
 
-	// 每次開關calendar時會mount一次，直接檢查是否有值在input並帶入calendar，若 input 上有值則帶入
-	useEffect(() => {
-		if (value) {
-			dayjs.extend(toObject);
-			const myDate: IDayjsObject = dayjs(value).toObject();
-
-			setCalendar(prevState => ({
-				...prevState,
-				year: myDate.years,
-				month: myDate.months,
-				date: myDate.date,
-			}));
-
-			setIsSelectedDate(prevState => ({
-				...prevState,
-				year: myDate.years,
-				month: myDate.months,
-				date: myDate.date,
-			}));
-		}
-	}, []);
-
-	// 控制之前或是未來的日期的顏色與可否點選
 	const isOutOfLimit = (day: IDate) => {
-		// 今天的日期
 		const daytoday = new Date(today.year, today.month, today.date);
-		// dateline的日期
 		const samllestDay = new Date(limitDay.year, limitDay.month, limitDay.date);
-		// 日曆上的日期
 		const dayCal = new Date(day.year, day.month, day.date);
 		return dayCal > daytoday || dayCal < samllestDay;
 	};
@@ -87,7 +55,6 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		return day.year === today.year && day.month === today.month && day.date === today.date;
 	};
 
-	// 取得最小能顯示的日期Range
 	const getLimitDay = () => {
 		if(!pastDays) {
 			return
@@ -101,12 +68,8 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		});
 	};
 
-	// 取得當月月曆的左上角第一格(週日)的數字(日期)
 	const getFirstDayOfMonth = () => {
-		// 取得月曆當月1號
 		const MonthFirstDay = new Date(calendar.year, calendar.month, 1);
-
-		// ＊當月1號 - 星期幾的數字 = 月曆的第一天(左上角第一格) TODO: 不理解邏輯
 		const date = new Date(calendar.year, calendar.month, 1 - MonthFirstDay.getDay());
 
 		setFirstDay(prevState => ({
@@ -118,12 +81,10 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		}));
 	};
 
-	// 照順序產生日期與資料
 	const generateCalendarGrid = () => {
 		const data: IDate[] = [];
 		let day;
 		for (let i = 0; i < 42; i += 1) {
-			// JS Date 處理時間時，date 加 i 到超過 31時，會自動變成下個月
 			day = new Date(firstDay.year, firstDay.month, firstDay.date + i);
 
 			data.push({
@@ -137,21 +98,6 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		setDays([...data]);
 	};
 
-	// calendar state 有變，就自動執行 getFirstDayOfMonth，重新偵測修改 calendar 第一天資料
-	useEffect(() => {
-		getFirstDayOfMonth();
-	}, [calendar]);
-
-	// 第一次渲染
-	useEffect(() => {
-		getLimitDay();
-	}, []);
-
-	useEffect(() => {
-		generateCalendarGrid();
-	}, [firstDay]);
-
-	// 前後加減調整年份
 	const adjustYear = (fix: number) => {
 		if (fix > 0) {
 			setCalendar(prevState => ({
@@ -168,9 +114,7 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		}
 	};
 
-	// 前後加減調整月份
 	const adjustMonth = (fix: number) => {
-		// this.calendar.month += fix 範圍
 		const month = calendar.month + fix;
 		if (month > 11) {
 			adjustYear(1);
@@ -184,13 +128,44 @@ const Calendar: React.FC<CalendarProps> = ({ className, value, calendarPastDays,
 		}
 	};
 
-	// 把數字 format 成英文日期
 	const transferDate = (date: IDate) => {
 		const { year, month } = date;
-		// JS 在 date月份是 0 ~ 11
 		const monthPlus = month + 1;
 		return dayjs(`${year}-${monthPlus}-01`).format('MMM YYYY');
 	};
+
+	useEffect(() => {
+		if (value) {
+			dayjs.extend(toObject);
+			const myDate: IDayjsObject = dayjs(value).toObject();
+
+			setCalendar(prevState => ({
+				...prevState,
+				year: myDate.years,
+				month: myDate.months,
+				date: myDate.date,
+			}));
+
+			setIsSelectedDate(prevState => ({
+				...prevState,
+				year: myDate.years,
+				month: myDate.months,
+				date: myDate.date,
+			}));
+		}
+	}, []);
+
+	useEffect(() => {
+		getFirstDayOfMonth();
+	}, [calendar]);
+
+	useEffect(() => {
+		getLimitDay();
+	}, []);
+
+	useEffect(() => {
+		generateCalendarGrid();
+	}, [firstDay]);
 
 	return (
 		<S.Calendar className={className}>

@@ -1,4 +1,4 @@
-import { ICity } from '../types';
+import { ICity } from 'types';
 
 export const CITY_MAP: ICity = {
     Taipei: '臺北市',

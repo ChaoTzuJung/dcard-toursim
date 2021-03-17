@@ -1,9 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import dayjs from 'dayjs';
 
-import { IDate } from '../../types';
-import { useOnClickOutside } from '../../utils/hook';
-import Calendar from '../Calendar';
+import { useOnClickOutside } from 'hook/useOnClickOutside';
+import { IDate } from 'types';
+import Calendar from 'components/Calendar';
 import { S } from './styled';
 
 type DatePickerProps = {

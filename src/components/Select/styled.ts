@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { device } from 'utils/media';
 
 type TriangleType = {
     direction?: string;
@@ -9,6 +10,10 @@ export const S = {
         position: relative;
         width: 220px;
         border-radius: 2px;
+
+        @media ${device.mobile} {
+            width: 100%;
+        }
     `,
     Select: styled.div`
         display: flex;
@@ -32,6 +37,10 @@ export const S = {
         z-index: 2;
         max-height: 200px;
         overflow: scroll;
+
+        @media ${device.mobile} {
+            width: 100%;
+        }
     `,
     SelectList: styled.ul`
         width: 100%;

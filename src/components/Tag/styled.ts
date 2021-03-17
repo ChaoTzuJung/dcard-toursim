@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 
-
 export const S = {
     Wrapper: styled.div`
         margin-right: 8px;

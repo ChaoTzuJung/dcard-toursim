@@ -1,4 +1,4 @@
-import { ICheckbox } from '../../types';
+import { ICheckbox } from 'types';
 import { S } from './styled';
 
 type CheckboxProps = {

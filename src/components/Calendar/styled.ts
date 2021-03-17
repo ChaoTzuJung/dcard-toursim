@@ -9,8 +9,8 @@ export const S = {
     Calendar: styled.div`
         position: relative;
         width: 335px;
-        height: 335px;
         min-width: 335px;
+        height: 335px;
         padding: 16px;
         border-radius: 4px;
         background-color: var(--white);
@@ -44,8 +44,8 @@ export const S = {
         text-align: center;
         font-size: 14px;
         font-weight: 500;
-        cursor: pointer;
         outline: none;
+        cursor: pointer;
 
         &:hover {
             border-radius: 50%;

@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and TypeScript template.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Dcard Toursim
+A webapp that list different tourist attractions with filter tool. 
 
-## Available Scripts
+![image](./assets/dcard-toursim.gif)
 
-In the project directory, you can run:
+## Installation
 
-### `yarn start`
+```shell
+$ git clone https://github.com/ChaoTzuJung/dcard-toursim.git
+$ cd dcard-toursim
+$ npm install && npm start (or using yarn instead)
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features:
+  - [X] Virtualized List
+  - [X] Infinite Scroll
+  - [X] Lazy Load
+  - [X] Performance
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Virtualized List
+Use `react-window` to achieve virtualized list which is a react components for efficiently rendering large lists and tabular data.As the Chrome Performance Monitor, It took less than **4.2MB JS heap size, 350 DOM** nodes on initial renderer, and of course, it's responsive. 
 
-### `yarn test`
+### Infinite Scroll && Lazy Load
+Use `IntersectionObserver` API to achieve infinite scroll and only load more data while scrolling to current bottom boundary.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Performance
+In addition to lazy-loading data, dcard-reader also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
 
-### `yarn build`
+## File Structure
+```
+src
+├── api
+│   └── proxy.ts
+├── api
+│   └── index.ts
+├── hook
+│   └── useFetchPost.tsx
+│   └── useOnClickOutside.tsx
+├── pages
+│   └── Home
+├── components
+│   └── Calendar
+│   └── CardItem
+│   └── CardList
+│   └── Checkbox
+│   └── Filter
+├── types
+│   └── index.ts
+├── utils
+│   └── helper.ts
+│   └── media.ts
+└── App.tsx
+└── GlobalStyles.ts
+└── index.tsx
+└── serviceWorker.ts
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Todo Roadmap
+  - [ ] Content Page
+  - [ ] Pagination
+  - [ ] Storybook
+  - [ ] Unit Test
+    - [ ] CI/CD Pipeline
+  - [ ] Server Side Rendering
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader?ref=badge_large)

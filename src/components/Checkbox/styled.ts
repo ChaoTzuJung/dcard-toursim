@@ -1,10 +1,15 @@
 import styled from 'styled-components';
+import { device } from 'utils/media';
 
 export const S = {
     Wrapper: styled.div`
         width: 100%;
         height: auto;
         padding: 0 16px 24px 16px;
+
+        @media ${device.mobile} {
+            padding: 0 16px 0 0;
+        }
     `,
     Item: styled.div`
         display: flex;
