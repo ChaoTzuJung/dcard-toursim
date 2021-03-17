@@ -4,8 +4,8 @@ import { MOTC_BASE_URL, API_POST_LIMIT } from 'api';
 import { IToursim } from 'types';
 
 const GetAuthorizationHeader = () => {
-    const AppID = 'b274fdb6b6994eaca433d5a82aa1d620';
-    const AppKey = 'bs3Z-VOZAgDVxYqAHz7q69WCSlg';
+    const AppID = (process.env.REACT_APP_ID as string);
+    const AppKey = (process.env.REACT_APP_KEY as string);
 
     const GMTString = new Date().toUTCString();
     const ShaObj = new jsSHA('SHA-1', 'TEXT');
