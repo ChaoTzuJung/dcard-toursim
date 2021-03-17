@@ -1,5 +1,5 @@
-import Tag from '../Tag';
-import { ICheckbox, IToursim } from '../../types';
+import Tag from 'components/Tag';
+import { ICheckbox, IToursim } from 'types';
 import { S } from './styled';
 
 type ResultProps = {

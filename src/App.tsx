@@ -3,10 +3,10 @@ import {
     Route,
     Switch
 } from 'react-router-dom';
-import Home from './pages/Home';
-import NotFound from './pages/NotFound';
-import Header from './components/Header'; 
-import StyledGlobal from './components/Common/style/GlobalStyles';
+import Home from 'pages/Home';
+import NotFound from 'pages/NotFound';
+import Header from 'components/Header'; 
+import StyledGlobal from './GlobalStyles';
 
 const App = () => (
     <Router>

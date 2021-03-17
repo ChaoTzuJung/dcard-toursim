@@ -1,9 +1,11 @@
-import { useRef, useCallback, useEffect } from "react";
+import { useRef, useMemo, useCallback, useEffect } from "react";
 import { useLocation } from 'react-router-dom';
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
+import useMedia from 'use-media';
 
-import { IToursim } from '../../types';
+import { screen } from 'utils/media';
+import { IToursim } from 'types';
 import Card from '../Card';
 
 type CardListProps = {
@@ -18,10 +20,19 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
     let listRef: List| null = null;
     const observer = useRef<IntersectionObserver>();
 
-    useEffect(() => {
-        listRef?.scrollToItem(0);
-        setLastId(null);
+    const isMobile = useMedia({ maxWidth: screen.mobile })
+    const isTablet = useMedia({ maxWidth: screen.tablet })
+    const listWidth = useMemo(() => {
+        if (isMobile || isTablet) {
+            return 438;
+        } else {
+            return 244;
+        }
+    }, [isMobile, isTablet]);
 
+    useEffect(() => {
+        setLastId(null);
+        listRef?.scrollToItem(0);
     }, [location.pathname])
     
     const lastItemRef = useCallback(node => {
@@ -84,10 +95,10 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
         <AutoSizer>
             {({ height, width }) => (
                 <List
-                    height={height - 92}
+                    height={isMobile ? height : height - 92}
                     width={width}
                     itemCount={data.length}
-                    itemSize={244}
+                    itemSize={listWidth}
                     itemData={data}
                     ref={(c) => listRef = c}
                 >

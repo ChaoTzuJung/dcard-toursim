@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+import { device } from 'utils/media';
 
 export const S = {
     Wrapper: styled.div`
@@ -12,6 +13,10 @@ export const S = {
                 font-size: 16px;
                 text-align: right;
                 font-family: 'Roboto-Regular';
+
+                @media ${device.mobile} {
+                    margin-right: 12px;
+                }
             }
         }
 
@@ -35,5 +40,9 @@ export const S = {
         border-radius: 2px;
         outline: none;
         cursor: pointer;
+
+        @media ${device.mobile} {
+            width: 100%;
+        }
     `
 }

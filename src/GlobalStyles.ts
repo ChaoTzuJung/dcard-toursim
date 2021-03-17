@@ -10,16 +10,21 @@ const StyledGlobal = createGlobalStyle`
     }
     html {
         --red: #ff0000;
-        --white: #FFFFFF;
-        --darkWhite: #F2F2F2;
-        --black: #000000;
-        --darkGrey: #9B9B9B;
-        --grey: #D7D7D7;
-        --lightGrey: #EBEBEB;
         --purple: #7828B4;
         --lightPurple: #9013FE;
-        --bs: 0 12px 24px 0 rgba(0,0,0,0.09);
-        --maxWidth: 1206px;
+        --darkWhite: #F2F2F2;
+        --lightGrey: #EBEBEB;
+        --grey: #D7D7D7;
+        --darkGrey: #9B9B9B;
+        --white: #FFFFFF;
+        --black: #000000;
+        --title: 36px;
+        --bigTitle: 24px;
+        --subtitle: 20px
+        --paragraph: 16px;
+        --remark: 16px;
+        --placeholder: 20px;
+        --label: 16px;
         box-sizing: border-box;
     }
     *, *:before, *:after {

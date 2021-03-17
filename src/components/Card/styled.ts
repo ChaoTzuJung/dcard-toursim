@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { device } from 'utils/media';
 
 export const S = {
     Card: styled.div`
@@ -10,14 +11,43 @@ export const S = {
         box-shadow: 2px 5px 10px 0 #EBEBEB;
         cursor: pointer;
 
+        @media ${device.tablet} {
+            flex-direction: column;
+            width: 388px;
+            height: 414px
+        }
+
+        @media ${device.mobile} {
+            width: 100%;
+        }
+
         & img {
             width: 220px;
             height: 220px;
             object-fit: cover;
+
+            @media ${device.tablet} {
+                width: 388px;
+                height: 196px
+            }
+
+            @media ${device.mobile} {
+                width: 100%;
+            }
         }
 
         & img:not([src]) {
-            background-image: url('https://fakeimg.pl/220x220')
+            background-image: url('https://fakeimg.pl/220x220/282828/EAE0D0');
+
+            @media ${device.tablet} {
+                background-image: url('https://fakeimg.pl/388x196/282828/EAE0D0')
+            }
+
+
+            @media ${device.mobile} {
+                background-image: url('https://fakeimg.pl/334x196/282828/EAE0D0');
+                background-size: contain;
+            }
         }
 
         &:hover {
@@ -39,9 +69,10 @@ export const S = {
         }
     `,
     CardTitle: styled.div`
-        font-family: 'Roboto-Bold';
-        font-size: 24px;
         color:  var(--lightPurple);
+        font-family: 'Roboto-Bold';
+        font-weight: bold;
+        font-size: 24px;
         line-height: 36px;
     `,
     CardDescription: styled.div`
@@ -55,6 +86,15 @@ export const S = {
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         overflow: hidden;
+
+        @media ${device.tablet} {
+            width: 348px;
+            margin-top: 6px;
+        }
+
+        @media ${device.mobile} {
+            width: 271px;
+        }
     `,
     TicketInfo: styled.div`
         font-family: 'Roboto-Bold';

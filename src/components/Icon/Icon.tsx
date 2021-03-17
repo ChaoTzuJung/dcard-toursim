@@ -1,6 +1,6 @@
-import { ISvgMap } from '../../types';
-import { ReactComponent as ArrowLeftIcon } from '../../images/icons/arrow-left-dark.svg';
-import { ReactComponent as ArrowRightIcon } from '../../images/icons/arrow-right-dark.svg';
+import { ReactComponent as ArrowLeftIcon } from 'images/icons/arrow-left-dark.svg';
+import { ReactComponent as ArrowRightIcon } from 'images/icons/arrow-right-dark.svg';
+import { ISvgMap } from 'types';
 import { S } from './styled';
 
 type IconProps = {
@@ -10,7 +10,7 @@ type IconProps = {
 	onClick?: () => void;
 }
 
-const Icon: React.FC<IconProps> = ({ name, onClick, theme, rotate }) => {
+const Icon: React.FC<IconProps> = ({ name, theme, rotate, onClick }) => {
 
 	const handleClick = () => {
 		onClick && onClick()

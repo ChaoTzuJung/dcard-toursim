@@ -28,7 +28,7 @@ const Card: React.FC<CardProps> = ({
     loading = false,
 }) => {
     const cityName = address?.slice(0, 3);
-    const fee = ticketInfo?.includes('免費') ? '免費' : '收費';
+    const fee = ticketInfo?.includes('免費') ? 'Free': 'Paid';
 
     if(loading)
         return (
