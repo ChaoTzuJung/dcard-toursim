@@ -72,4 +72,4 @@ src
   - [ ] CI/CD Pipeline
   - [ ] Server Side Rendering
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fkylemocode%2Fdcard-reader?ref=badge_large)
+Netlify URL: [https://dcard-tourism.netlify.app](hhttps://dcard-tourism.netlify.app)
