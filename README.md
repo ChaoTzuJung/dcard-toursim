@@ -70,6 +70,5 @@ src
   - [ ] Storybook
   - [ ] Unit Test
   - [ ] Server Side Rendering
-  - [ ] .env setting with Netlify
 
-Netlify URL: [https://dcard-tourism.netlify.app](hhttps://dcard-tourism.netlify.app)
+Netlify URL: [https://dcard-tourism.netlify.app](https://dcard-tourism.netlify.app)
