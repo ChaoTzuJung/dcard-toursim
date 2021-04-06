@@ -87,7 +87,6 @@ export const S = {
         width: 100%;
         padding: 5px 20px;
         border: none;
-        cursor: pointer;
         background: transparent;
         outline: none;
         border-radius: 0;

@@ -1,21 +1,50 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useInfiniteQuery } from 'react-query';
 import useMedia from 'use-media';
 
-import { IFetchPostHook, ICheckbox } from 'types';
+import API from 'API';
+import { API_POST_LIMIT } from 'config';
+import { ICheckbox } from 'types';
 import { screen } from 'utils/media';
-import useFetchPost from 'hook/useFetchPost';
 import CardList from 'components/CardList';
 import Filter from 'components/Filter';
 import Result from 'components/Result';
 import { S } from './styled';
 
+
 const Home: React.FC = () => {
     const history = useHistory();
     const location = useLocation();
-    const city: string | undefined = location.pathname.split('/')[2];
-    const [lastId, setLastId] = useState<string | null>(null);
-    const { posts, loading, error, hasMore }: IFetchPostHook = useFetchPost(city, lastId);
+    const pathname: string | undefined = location.pathname.split('/')[2];
+    let city: string = pathname || '';
+
+    const {
+        data,
+        isLoading,
+        isFetching,
+        fetchNextPage,
+        hasNextPage,
+        error,
+        refetch,
+    } = useInfiniteQuery(
+        `tourism-${city}`, ({ pageParam, queryKey }) => API.fetchTouristSpot(pageParam, city),
+        {
+            // give react-query the next page, so it know how to fetch the next page.
+            getNextPageParam: (lastPage, pages) => {
+                if (lastPage.length < API_POST_LIMIT) return undefined;
+                const newPage = pages.length - 1 as number;
+                return newPage + 1;
+            },
+        });
+
+    const getMore = () => {
+        // usually check for next cursor
+        if (data?.pages[0] && data.pages[0].length < API_POST_LIMIT) return;
+        // Pass a new value into cb of useInfiniteQuery, state hook will not be updated in time
+        fetchNextPage();
+    };
+
     const [checkbox, setCheckbox] = useState<ICheckbox>({
         '其他': false,
         '觀光工廠類': false,
@@ -38,12 +67,15 @@ const Home: React.FC = () => {
     }
 
     useEffect(() => {
-        if(!city) {
+        refetch();
+        if(!pathname) {
             history.push("/scenicSpot");
         }
-    }, [location.pathname, city, history])
+    }, [pathname, history])
 
-    if(error) return <p>Something goes wrong......</p>
+    const tourismList = data?.pages.reduce((prev, curr) => prev.concat(curr));
+
+    if(error) return <p>Error......</p>
 
     return (
         <S.Wrapper>
@@ -57,15 +89,16 @@ const Home: React.FC = () => {
                 {<>
                     {!isMobile && (
                     <Result
-                        data={posts}
+                        data={tourismList}
                         tags={checkbox}
                         onClick={handleTagClose}
                     />)}
                     <CardList
-                        data={posts}
-                        loading={loading}
-                        hasMore={hasMore}
-                        setLastId={setLastId}
+                        data={tourismList}
+                        loading={isLoading}
+                        fetching={isFetching}
+                        hasMore={hasNextPage}
+                        getMore={getMore}
                     />
                 </>}
             </div>

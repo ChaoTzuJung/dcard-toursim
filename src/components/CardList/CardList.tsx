@@ -1,25 +1,22 @@
-import { useRef, useMemo, useCallback, useEffect } from "react";
-import { useLocation } from 'react-router-dom';
+import { useRef, useMemo } from "react";
 import { FixedSizeList as List } from "react-window";
 import AutoSizer from "react-virtualized-auto-sizer";
 import useMedia from 'use-media';
 
-import { screen } from 'utils/media';
 import { IToursim } from 'types';
-import Card from '../Card';
+import { screen } from 'utils/media';
+import useIntersectionObserver from "hook/useIntersectionObserver";
+import Card from 'components/Card';
 
 type CardListProps = {
-    data: IToursim[];
-    hasMore: boolean;
-    setLastId: React.Dispatch<React.SetStateAction<string | null>>;
+    data: IToursim[] | undefined;
+    hasMore: boolean | undefined;
     loading: boolean;
+    fetching: boolean;
+    getMore: () => void;
 }
 
-const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }) => {
-    const location = useLocation();
-    let listRef: List| null = null;
-    const observer = useRef<IntersectionObserver>();
-
+const CardList: React.FC<CardListProps> = ({ data, hasMore, loading, fetching, getMore }) => {
     const isMobile = useMedia({ maxWidth: screen.mobile })
     const isTablet = useMedia({ maxWidth: screen.tablet })
     const listWidth = useMemo(() => {
@@ -30,66 +27,39 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
         }
     }, [isMobile, isTablet]);
 
-    useEffect(() => {
-        setLastId(null);
-        listRef?.scrollToItem(0);
-    }, [location.pathname, setLastId, listRef])
-    
-	/* eslint-disable react-hooks/exhaustive-deps */
-    const lastItemRef = useCallback(node => {
-        if(loading) {
-            return;
-        };
-
-        if(observer.current) {
-            // stops watching all of its target elements for visibility changes.
-            observer.current.disconnect();
-        }
-
-        const callback = (entries: IntersectionObserverEntry[]) => { 
-            if(entries[0].isIntersecting && hasMore) {
-                // @ts-ignore
-                setLastId(node.dataset.id);
-            }
-        };
-
-        observer.current = new IntersectionObserver(callback)
-
-        if(node) observer.current.observe(node)
-    }, [loading, hasMore])
+    if(loading || !data) return <p>First Loading...</p>
 
     const Item = ({ index, style }: { index: number, style: React.CSSProperties }) => {
-        if (data.length === index + 1) {
-            return (
-                <div style={style} ref={lastItemRef} data-id={index + 1}>
-                    <Card
-                        name={data[index].Name}
-                        description={data[index].Description}
-                        address={data[index].Address}
-                        updateTime={data[index].UpdateTime}
-                        ticketInfo={data[index].TicketInfo}
-                        picture={data[index].Picture.PictureUrl1}
-                        category={data[index].Class1}
-                        loading={loading}
-                    />
-                </div>
-            )
-        }
-        else {
-            return (
-                <div style={style}>
-                    <Card
-                        name={data[index].Name}
-                        description={data[index].Description}
-                        address={data[index].Address}
-                        updateTime={data[index].UpdateTime}
-                        ticketInfo={data[index].TicketInfo}
-                        picture={data[index].Picture.PictureUrl1}
-                        category={data[index].Class1}
-                    />
-                </div>
-            )
-        }
+        const lastItemRef = useRef() as React.MutableRefObject<HTMLInputElement>;
+        const entry = useIntersectionObserver(lastItemRef, {});
+        !!entry?.isIntersecting && hasMore && getMore();
+            
+        return data?.length === index + 1 ? (
+            <div style={style} ref={lastItemRef} data-id={index + 1}>
+                <Card
+                    name={data[index].Name}
+                    description={data[index].Description}
+                    address={data[index].Address}
+                    updateTime={data[index].UpdateTime}
+                    ticketInfo={data[index].TicketInfo}
+                    picture={data[index].Picture.PictureUrl1}
+                    category={data[index].Class1}
+                    loading={loading || fetching}
+                />
+            </div>
+        ) : (
+            <div style={style}>
+                <Card
+                    name={data[index].Name}
+                    description={data[index].Description}
+                    address={data[index].Address}
+                    updateTime={data[index].UpdateTime}
+                    ticketInfo={data[index].TicketInfo}
+                    picture={data[index].Picture.PictureUrl1}
+                    category={data[index].Class1}
+                />
+            </div>
+        );
     }
 
     return (
@@ -101,8 +71,8 @@ const CardList: React.FC<CardListProps> = ({ data, hasMore, setLastId, loading }
                     itemCount={data.length}
                     itemSize={listWidth}
                     itemData={data}
-                    ref={(c) => listRef = c}
                 >
+                    {/* @ts-ignore */}
                     {Item}
                 </List>
             )}
