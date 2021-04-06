@@ -17,6 +17,7 @@ $ npm install && npm start (or using yarn instead)
   - [X] Virtualized List
   - [X] Infinite Scroll
   - [X] Lazy Load
+  - [X] Cache
   - [X] Performance
 
 ### Virtualized List
@@ -24,6 +25,9 @@ Use `react-window` to achieve virtualized list which is a react components for e
 
 ### Infinite Scroll && Lazy Loading
 Use `IntersectionObserver` API to achieve infinite scroll and only load more data while scrolling to current bottom boundary.
+
+### Cache 
+Use `react-query` to handle data fetching, caching, background updates and stale data.
 
 ### Performance
 In addition to lazy-loading data, dcard-tourism also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
