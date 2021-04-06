@@ -71,7 +71,7 @@ const Home: React.FC = () => {
         if(!pathname) {
             history.push("/scenicSpot");
         }
-    }, [pathname, history])
+    }, [pathname, history, refetch])
 
     const tourismList = data?.pages.reduce((prev, curr) => prev.concat(curr));
 
