@@ -3,7 +3,7 @@ import { ICheckbox, IToursim } from 'types';
 import { S } from './styled';
 
 type ResultProps = {
-    data: IToursim[];
+    data: IToursim[] | undefined;
     tags: ICheckbox;
     onClick: (text: string) => void;
 }
@@ -11,7 +11,7 @@ type ResultProps = {
 const Result: React.FC<ResultProps>= ({ data, tags, onClick }) => (
     <S.Wrapper>
         <div className="description">
-            Showing <span>{data.length}</span> results by...
+            Showing <span>{data?.length}</span> results by...
         </div>
         <S.TagsWrapper>
             {Object
