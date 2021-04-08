@@ -2,7 +2,7 @@ import { useInfiniteQuery } from 'react-query';
 import { API_POST_LIMIT } from 'config';
 import API from 'API';
 
-const useFetchInfinitePost = (city?: string, query?: string) => {
+const useFetchInfinitePost = ( date: string, city?: string, query?: string) => {
     const {
         data,
         isLoading,
@@ -12,7 +12,7 @@ const useFetchInfinitePost = (city?: string, query?: string) => {
         error,
         refetch,
     } = useInfiniteQuery(
-        [`search-${city}`, query], ({ pageParam, queryKey }) => API.fetchTouristSpot(pageParam, city, query),
+        [`search-${city}`, query], ({ pageParam, queryKey }) => API.fetchTouristSpot(pageParam, city, query, date),
         {
             // give react-query the next page, so it know how to fetch the next page.
             getNextPageParam: (lastPage, pages) => {

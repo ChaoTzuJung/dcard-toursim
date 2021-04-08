@@ -10,7 +10,14 @@ import NotFound from 'pages/NotFound';
 import Header from 'components/Header'; 
 import StyledGlobal from './GlobalStyles';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false,
+            cacheTime: 1000 * 30, // 30s
+        },
+    },
+});
 
 const App = () => (
     <QueryClientProvider client={queryClient}>

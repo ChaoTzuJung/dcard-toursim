@@ -7,11 +7,10 @@ import {
     API_POST_LIMIT,
 } from './config';
 
-const GetAuthorizationHeader = () => {
+const GetAuthorizationHeader = (xDate: string) => {
     const AppID = (API_ID as string);
     const AppKey = (API_KEY as string);
-
-    const GMTString = new Date().toUTCString();
+    const GMTString = xDate || new Date().toUTCString();
     const ShaObj = new jsSHA('SHA-1', 'TEXT');
     ShaObj.setHMACKey(AppKey, 'TEXT');
     ShaObj.update('x-date: ' + GMTString);
@@ -21,17 +20,20 @@ const GetAuthorizationHeader = () => {
     return { 'Authorization': Authorization, 'X-Date': GMTString }; 
 }
 
-const defaultConfig = {
-    method: 'GET',
-    headers: GetAuthorizationHeader(),
-};
-
 const apiSettings = {
-    fetchTouristSpot: async (page: number = 0, city: string = "") => {
-        const endpoint = `${TOURISM_BASE_URL}/ScenicSpot/${city}?$top=${API_POST_LIMIT}&$skip=${page * API_POST_LIMIT}&$format=JSON`
+    fetchTouristSpot: async (
+        page: number = 0,
+        city: string = "",
+        query: string | undefined = undefined,
+        date: string, 
+    ) => {
+        const endpoint = query ?
+            `${TOURISM_BASE_URL}/ScenicSpot/${city}?$filter=contains(Name,'${query}')&$format=JSON` :
+            `${TOURISM_BASE_URL}/ScenicSpot/${city}?$top=${API_POST_LIMIT}&$skip=${page * API_POST_LIMIT}&$format=JSON`;
         const response = await(
             await fetch(endpoint, {
-                ...defaultConfig,
+                method: 'GET',
+                headers: GetAuthorizationHeader(date),
             })
         ).json()
         return response;

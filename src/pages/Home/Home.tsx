@@ -18,7 +18,8 @@ const Home: React.FC = () => {
     const location = useLocation();
     const pathname: string | undefined = location.pathname.split('/')[2];
     let city: string = pathname || '';
-
+    const date = new Date().toUTCString();
+    
     const {
         data,
         isLoading,
@@ -27,7 +28,7 @@ const Home: React.FC = () => {
         hasNextPage,
         error,
         refetch,
-    } = useFetchInfinitePost(city, query);
+    } = useFetchInfinitePost(date, city, query);
 
 
     const getMore = () => {

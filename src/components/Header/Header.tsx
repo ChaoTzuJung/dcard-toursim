@@ -16,8 +16,9 @@ const Header: React.FC = () => {
     let isComposition = false;
     const pathname: string | undefined = location.pathname.split('/')[2];
     const city: string = pathname || '';
+    const date = new Date().toUTCString();
 
-    const { refetch } = useFetchInfinitePost(city, query);
+    const { refetch } = useFetchInfinitePost(date, city, query);
 
     const isMobile = useMedia({ maxWidth: screen.mobile });
 
