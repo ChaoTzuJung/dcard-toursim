@@ -32,11 +32,15 @@ Use `react-query` to handle data fetching, caching, background updates and stale
 ### Performance
 In addition to lazy-loading data, dcard-tourism also use react core functions to enhance app performance, such as `React.memo`、`useCallback`、`useMemo`...etc.
 
+### Search
+Filtering a toursim list by search bar which specifically deal with chinese input data.
+
 ## File Structure
 - Creating path aliases in create-react-app with `tsconfig.json` setting.
 - Organize types definitions in `types` folder.
 - Smarter way to organize **import** statements using `index.ts` files
 - Export **S** object from `styled.ts` to resolve naming convention issue with React component and styled component.
+
 ```
 src
 ├── api
@@ -67,8 +71,6 @@ src
 
 ## Todo Roadmap
   - [ ] Content Page
-  - [ ] Pagination
-  - [ ] Search Bar
   - [ ] Calendar & Checkbox Filter
   - [ ] Error Handling
   - [ ] Storybook
