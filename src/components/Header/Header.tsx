@@ -1,14 +1,26 @@
-import React, { useMemo } from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect, useRef, useMemo } from "react";
+import { Link, useLocation } from 'react-router-dom';
 import useMedia from 'use-media';
 import SearchIcon from '@material-ui/icons/Search';
-import Logo from 'images/logo.svg';
 
+import { useSearch } from 'contexts/SearchContext';
+import useFetchInfinitePost from 'hook/useFetchInfinitePost';
+import Logo from 'images/logo.svg';
 import { screen } from 'utils/media';
 import { S } from './styled';
 
 const Header: React.FC = () => {
-    const isMobile = useMedia({ maxWidth: screen.mobile })
+    const inputRef = useRef<HTMLInputElement | null>(null);
+    const location = useLocation();
+    const { query, setQuery } = useSearch()
+    let isComposition = false;
+    const pathname: string | undefined = location.pathname.split('/')[2];
+    const city: string = pathname || '';
+
+    const { refetch } = useFetchInfinitePost(city, query);
+
+    const isMobile = useMedia({ maxWidth: screen.mobile });
+
     const IconStyle = useMemo(() => {
         if (isMobile) {
             return { fontSize: 27, color: '#000000' };
@@ -16,6 +28,33 @@ const Header: React.FC = () => {
             return { fontSize: 27, color: '#FFFFFF' };
         }
     }, [isMobile]);
+
+    const handleComposition = (e: React.CompositionEvent<HTMLInputElement>) => {
+        if (e.type === 'compositionend') {
+            isComposition = false;
+            setQuery(e.currentTarget.value);
+            return;
+        } else {
+            isComposition = true;
+        }
+    }
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if(inputRef.current) {
+            inputRef.current.value = e.target.value;
+        }
+
+        if (!isComposition) {
+            setQuery(e.target.value);
+        }
+    }
+
+    useEffect(() => {
+        if (query) {
+            refetch();
+        }
+    }, [refetch, query]);
+
     return (
         <S.Header>
             <S.Navigation>
@@ -28,8 +67,12 @@ const Header: React.FC = () => {
                     <div className="search-bar">
                         <SearchIcon style={IconStyle} />
                         <S.Input
+                            ref={inputRef}
                             type="text"
                             placeholder="Explore your own activities"
+                            onChange={handleSearch}
+                            onCompositionStart={handleComposition}
+                            onCompositionEnd={handleComposition}
                         />
                     </div>
                 </div>

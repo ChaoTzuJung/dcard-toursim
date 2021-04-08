@@ -16,11 +16,11 @@ const App = () => (
     <QueryClientProvider client={queryClient}>
         <Router>
             <StyledGlobal />
-            <Header />
-            <Switch>
-                <Route path="/" component={Home} />
-                <Route path="*" component={NotFound} />
-            </Switch>
+                <Header />
+                <Switch>
+                    <Route path="/" component={Home} />
+                    <Route path="*" component={NotFound} />
+                </Switch>
         </Router>
         {process.env.NODE_ENV === "development" && <ReactQueryDevtools initialIsOpen />}
     </QueryClientProvider>

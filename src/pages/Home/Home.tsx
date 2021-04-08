@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { useInfiniteQuery } from 'react-query';
 import useMedia from 'use-media';
 
-import API from 'API';
-import { API_POST_LIMIT } from 'config';
-import { ICheckbox } from 'types';
-import { screen } from 'utils/media';
 import CardList from 'components/CardList';
 import Filter from 'components/Filter';
 import Result from 'components/Result';
+import { API_POST_LIMIT } from 'config';
+import { useSearch } from 'contexts/SearchContext';
+import useFetchInfinitePost from 'hook/useFetchInfinitePost';
+import { ICheckbox } from 'types';
+import { screen } from 'utils/media';
 import { S } from './styled';
 
-
 const Home: React.FC = () => {
+    const { query } = useSearch();
     const history = useHistory();
     const location = useLocation();
     const pathname: string | undefined = location.pathname.split('/')[2];
@@ -27,21 +27,11 @@ const Home: React.FC = () => {
         hasNextPage,
         error,
         refetch,
-    } = useInfiniteQuery(
-        `tourism-${city}`, ({ pageParam, queryKey }) => API.fetchTouristSpot(pageParam, city),
-        {
-            // give react-query the next page, so it know how to fetch the next page.
-            getNextPageParam: (lastPage, pages) => {
-                if (lastPage.length < API_POST_LIMIT) return undefined;
-                const newPage = pages.length - 1 as number;
-                return newPage + 1;
-            },
-        });
+    } = useFetchInfinitePost(city, query);
+
 
     const getMore = () => {
-        // usually check for next cursor
         if (data?.pages[0] && data.pages[0].length < API_POST_LIMIT) return;
-        // Pass a new value into cb of useInfiniteQuery, state hook will not be updated in time
         fetchNextPage();
     };
 
@@ -73,9 +63,9 @@ const Home: React.FC = () => {
         }
     }, [pathname, history, refetch])
 
-    const tourismList = data?.pages.reduce((prev, curr) => prev.concat(curr));
+    const tourism = data?.pages.reduce((prev: any, curr: any) => prev.concat(curr));
 
-    if(error) return <p>Error......</p>
+    if(error) return <p>Fetch Error: {error}</p>
 
     return (
         <S.Wrapper>
@@ -89,15 +79,15 @@ const Home: React.FC = () => {
                 {<>
                     {!isMobile && (
                     <Result
-                        data={tourismList}
+                        data={tourism}
                         tags={checkbox}
                         onClick={handleTagClose}
                     />)}
                     <CardList
-                        data={tourismList}
+                        data={tourism}
                         loading={isLoading}
                         fetching={isFetching}
-                        hasMore={hasNextPage}
+                        hasMore={hasNextPage && !Boolean(query)}
                         getMore={getMore}
                     />
                 </>}
